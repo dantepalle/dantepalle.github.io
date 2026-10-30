@@ -1,0 +1,108 @@
+{
+  "siteConfig": {
+    "title": "x te, occhioni.",
+    "subTitle": "un piccolo gesto per te che mi manchi.",
+    "theme": {
+      "primaryColor": "#5A3866",
+      "secondaryColor": "#8BA846",
+      "accentColor": "#D4AF37",
+      "backgroundColor": "#121410"
+    },
+    "dates": {
+      "startDate": "2026-10-31T08:00:00",
+      "endDate": "2026-11-07T00:00:00"
+    }
+  },
+  "faiSeTiManco": [
+    {
+      "id": 1,
+      "titolo": "Quando fa serao e non sai che fare",
+      "icona": "🌙",
+      "azione": "Incuffiati, ascolta la playlist, o ascolta Kanye, Rocky, Future o lildombaby, mi sentirai anche a me."
+    },
+    {
+      "id": 2,
+      "titolo": "Vuoi qualcosa che ti ricordi di me?",
+      "icona": "☕",
+      "azione": "Oreo, e caffè."
+    },
+    {
+      "id": 3,
+      "titolo": "Quando vuoi passare un po' di tempo con me",
+      "icona": "🎞️",
+      "azione": "Guardati South Park o Gossip Girl, mi troverai lì."
+    },
+    {
+      "id": 4,
+      "titolo": "Quando vedi qualcosa, che mi vorresti mandare",
+      "icona": "📸",
+      "azione": "Fai una foto, un video, qualcosa, e mettilo in una cartella apparte, quando torno, me la fai vedere tutta."
+    }
+  ],
+  "datoCheNonPotremoSentirci": {
+    "titolo": "Dato che non potremo fare chiamata",
+    "descrizione": "Ho registrato questi audio per te. Ascoltali ogni volta che vuoi sentire la mia voce pedofila.",
+    "audioList": [
+      {
+        "id": "audio_1",
+        "titolo": "Ciao, amore!!!!!!!!!",
+        "descrizione": "Audio ignorante per salutarti.",
+        "fileUrl": "audio/buongiorno.ogg"
+      },
+      {
+        "id": "audio_2",
+        "titolo": "Prima di andare a dormire",
+        "descrizione": "Perchè anche se non ci sono per fartela la chiamata, voglio che tu dorma serena.",
+        "fileUrl": "audio/buonanotte.ogg"
+      },
+      {
+        "id": "audio_3",
+        "titolo": "Piccolo reminder.",
+        "descrizione": "Unica cosa che posso fare: dirti che ti amo.",
+        "fileUrl": "audio/tiamo.ogg"
+      }
+    ]
+  },
+  "percheTiAmoCards": [
+    {
+      "id": 1,
+      "testo": "Perché sei l'unica persona che riesce a farmi sentire a casa anche quando sono lontano."
+    },
+    {
+      "id": 2,
+      "testo": "Perché sei l'unica che mi ha fatto aprire davvero il cuore."
+    },
+    {
+      "id": 3,
+      "testo": "Perché per te farei di tutto, pur di mantenerti affianco a me."
+    },
+    {
+      "id": 4,
+      "testo": "Perché nonostante tutto, sei l'unica che riesce a farmi stare bene."
+    },
+    {
+      "id": 5,
+      "testo": "Perché sei l'unica che riesce a farmi sorridere anche nei momenti più bui."
+    },
+    {
+      "id": 6,
+      "testo": "Perché sei l'unica che mi fa sentire vivo e felice."
+    },
+    {
+      "id": 7,
+      "testo": "Perché sei l'unica che è rimasta anche quando non lo meritavo."
+    },
+    {
+      "id": 8,
+      "testo": "Perché sei l'unica che vuole davvero vedere Marian."
+    },
+    {
+      "id": 9,
+      "testo": "Perché sei l'unica che riesce a farmi pensare a lei sempre."
+    },
+    {
+      "id": 10,
+      "testo": "Perché sei l'unica che mi fa sentire umano."
+    }
+  ]
+}

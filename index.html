@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>come se fossimo "vicini"</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            botanical: {
+              900: '#121410',
+              800: '#1c211a',
+              700: '#2a3326',
+              accent: '#8ba846',
+            },
+            violetPetal: {
+              300: '#d8b4e2',
+              500: '#9b6bb0',
+              700: '#5a3866',
+              900: '#321c3d',
+            },
+            golden: {
+              light: '#f5e4a8',
+              DEFAULT: '#d4af37',
+              dark: '#997a15',
+            }
+          },
+          fontFamily: {
+            serif: ['Cinzel', 'serif'],
+            body: ['Plus Jakarta Sans', 'sans-serif'],
+            romantic: ['Playfair Display', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #121410;
+      color: #e2e8f0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    .glass-card {
+      background: rgba(28, 33, 26, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+    .glass-card-violet {
+      background: rgba(50, 28, 61, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(155, 107, 176, 0.25);
+    }
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #f5e4a8 0%, #d4af37 50%, #997a15 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .violet-gradient-text {
+      background: linear-gradient(135deg, #e8d0f0 0%, #d8b4e2 50%, #9b6bb0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen">
+
+  <canvas id="petalsCanvas"></canvas>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-4 py-12 md:py-20 space-y-16">
+
+    <!-- HEADER -->
+    <header class="text-center space-y-4">
+      <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-card-violet text-xs tracking-widest uppercase text-violetPetal-300 font-semibold mb-2 border border-violetPetal-500/30">
+        <span> Safe space</span>
+      </div>
+      <h1 id="headerTitle" class="font-serif text-3xl md:text-5xl lg:text-6xl font-bold gold-gradient-text tracking-wide">
+        <!-- Dinamico -->
+      </h1>
+      <p id="headerSubtitle" class="font-romantic italic text-lg md:text-xl text-violetPetal-300 max-w-xl mx-auto">
+        <!-- Dinamico -->
+      </p>
+    </header>
+
+    <!-- COUNTDOWN SECTION -->
+    <section class="glass-card rounded-3xl p-6 md:p-10 text-center relative overflow-hidden">
+      <div class="absolute -right-16 -top-16 w-40 h-40 bg-violetPetal-700/20 rounded-full blur-3xl"></div>
+      <div class="absolute -left-16 -bottom-16 w-40 h-40 bg-botanical-accent/20 rounded-full blur-3xl"></div>
+
+      <h2 class="font-serif text-xl md:text-2xl text-golden tracking-wider uppercase mb-6">
+        Tempo al comeback dell'altra metà perfetta.
+      </h2>
+
+      <div class="grid grid-cols-4 gap-3 md:gap-6 max-w-lg mx-auto mb-8">
+        <div class="glass-card-violet p-3 md:p-5 rounded-2xl border border-violetPetal-500/30">
+          <span id="days" class="block font-serif text-2xl md:text-4xl font-bold text-violetPetal-300">00</span>
+          <span class="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest mt-1 block">Giorni</span>
+        </div>
+        <div class="glass-card-violet p-3 md:p-5 rounded-2xl border border-violetPetal-500/30">
+          <span id="hours" class="block font-serif text-2xl md:text-4xl font-bold text-violetPetal-300">00</span>
+          <span class="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest mt-1 block">Ore</span>
+        </div>
+        <div class="glass-card-violet p-3 md:p-5 rounded-2xl border border-violetPetal-500/30">
+          <span id="minutes" class="block font-serif text-2xl md:text-4xl font-bold text-violetPetal-300">00</span>
+          <span class="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest mt-1 block">Minuti</span>
+        </div>
+        <div class="glass-card-violet p-3 md:p-5 rounded-2xl border border-violetPetal-500/30">
+          <span id="seconds" class="block font-serif text-2xl md:text-4xl font-bold text-violetPetal-300">00</span>
+          <span class="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest mt-1 block">Secondi</span>
+        </div>
+      </div>
+
+      <div class="w-full bg-botanical-900 rounded-full h-2.5 overflow-hidden border border-golden/20 max-w-md mx-auto">
+        <div id="progressBar" class="bg-gradient-to-r from-violetPetal-500 via-golden to-botanical-accent h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+      </div>
+    </section>
+
+    <!-- FAI SE TI MANCO SECTION -->
+    <section class="space-y-6">
+      <div class="text-center space-y-2">
+        <h2 class="font-serif text-2xl md:text-3xl gold-gradient-text font-semibold">
+          Se ti manco:
+        </h2>
+        <p class="text-xs md:text-sm text-violetPetal-300/80 italic font-romantic">Piccoli gesti pensati per te quando vuoi sentirmi più vicino</p>
+      </div>
+
+      <div id="faiSeTiMancoGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Dinamico -->
+      </div>
+    </section>
+
+    <!-- DATO CHE NON POTREMO SENTIRCI SECTION (AUDIO) -->
+    <section class="glass-card rounded-3xl p-6 md:p-8 space-y-6 relative border border-violetPetal-500/30">
+      <div class="space-y-2">
+        <h2 id="audioSectionTitle" class="font-serif text-2xl md:text-3xl violet-gradient-text font-semibold">
+          <!-- Dinamico -->
+        </h2>
+        <p id="audioSectionDesc" class="text-sm text-slate-300">
+          <!-- Dinamico -->
+        </p>
+      </div>
+
+      <div id="audioListContainer" class="space-y-4">
+        <!-- Dinamico -->
+      </div>
+    </section>
+
+    <!-- PERCHÉ TI AMO CARDS -->
+    <section class="glass-card rounded-3xl p-6 md:p-8 text-center space-y-6">
+      <h2 class="font-serif text-2xl md:text-3xl gold-gradient-text font-semibold">
+        Tiamo pk:
+      </h2>
+      <div class="relative min-h-[160px] flex items-center justify-center">
+        <div id="loveCard" class="glass-card-violet p-6 rounded-2xl max-w-md w-full border border-golden/30 shadow-xl transition-all duration-300">
+          <p id="loveCardText" class="font-romantic text-lg md:text-xl text-violetPetal-300 italic">
+            <!-- Dinamico -->
+          </p>
+        </div>
+      </div>
+      <button id="nextCardBtn" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-violetPetal-700 to-botanical-accent text-white font-medium text-sm shadow-lg hover:opacity-90 transition-all">
+        Another one
+      </button>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-xs text-violetPetal-300/60 font-romantic italic py-6">
+      perché nonostante tutto, ti amo anche se sei down.
+    </footer>
+
+  </div>
+
+  <script>
+    // --- GESTIONE VISITE SEGRETE DA CONSOLE ---
+    (function trackVisits() {
+      const STORAGE_KEY = 'sito_visite_count';
+      try {
+        let count = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+        count++;
+        localStorage.setItem(STORAGE_KEY, count);
+      } catch(e) {}
+
+      window.quanteVolteLoHaVisto = function() {
+        const c = localStorage.getItem(STORAGE_KEY) || '1';
+        console.log(`💜 Lo ha aperto esattamente ${c} volte!`);
+        return c;
+      };
+
+      window.resettaVisite = function() {
+        localStorage.setItem(STORAGE_KEY, '0');
+        console.log("🔄 Contatore visite resettato a 0.");
+      };
+    })();
+
+    let appData = null;
+    let currentCardIndex = 0;
+
+    async function initApp() {
+      try {
+        const response = await fetch('config_sito.json');
+        if (response.ok) {
+          appData = await response.json();
+          renderContent();
+          startCountdown();
+        } else {
+          console.error("Impossibile caricare config_sito.json");
+        }
+      } catch (e) {
+        console.error("Errore durante il caricamento del JSON:", e);
+      }
+    }
+
+    function renderContent() {
+      if (!appData) return;
+
+      // Header dinamico da JSON
+      document.getElementById('headerTitle').innerText = appData.siteConfig.title || '';
+      document.getElementById('headerSubtitle').innerText = appData.siteConfig.subTitle || '';
+
+      // Sezione "Fai se ti manco" dinamica
+      const grid = document.getElementById('faiSeTiMancoGrid');
+      if (appData.faiSeTiManco && Array.isArray(appData.faiSeTiManco)) {
+        grid.innerHTML = appData.faiSeTiManco.map(item => `
+          <div class="glass-card p-5 rounded-2xl border border-golden/10 hover:border-golden/30 transition-all">
+            <div class="flex items-start space-x-3">
+              <span class="text-2xl">${item.icona || '✨'}</span>
+              <div class="space-y-1">
+                <h3 class="font-semibold text-golden text-sm md:text-base">${item.titolo}</h3>
+                <p class="text-xs md:text-sm text-slate-300">${item.azione}</p>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Sezione Audio dinamica
+      if (appData.datoCheNonPotremoSentirci) {
+        document.getElementById('audioSectionTitle').innerText = appData.datoCheNonPotremoSentirci.titolo || '';
+        document.getElementById('audioSectionDesc').innerText = appData.datoCheNonPotremoSentirci.descrizione || '';
+        
+        const audioContainer = document.getElementById('audioListContainer');
+        if (appData.datoCheNonPotremoSentirci.audioList) {
+          audioContainer.innerHTML = appData.datoCheNonPotremoSentirci.audioList.map(audio => `
+            <div class="glass-card-violet p-4 rounded-2xl border border-violetPetal-500/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div class="space-y-1">
+                <h4 class="font-semibold text-violetPetal-300 text-sm md:text-base">${audio.titolo}</h4>
+                <p class="text-xs text-slate-400">${audio.descrizione}</p>
+              </div>
+              <audio controls class="w-full md:w-64 h-9 rounded-lg opacity-80 hover:opacity-100 transition-opacity">
+                <source src="${audio.fileUrl}" type="audio/mpeg">
+                Il tuo browser non supporta il riproduttore audio.
+              </audio>
+            </div>
+          `).join('');
+        }
+      }
+
+      // Carte "Perché ti amo" dinamiche
+      showCard(0);
+    }
+
+    function showCard(index) {
+      if (!appData || !appData.percheTiAmoCards || appData.percheTiAmoCards.length === 0) return;
+      currentCardIndex = index % appData.percheTiAmoCards.length;
+      document.getElementById('loveCardText').innerText = `"${appData.percheTiAmoCards[currentCardIndex].testo}"`;
+    }
+
+    document.getElementById('nextCardBtn').addEventListener('click', () => {
+      showCard(currentCardIndex + 1);
+    });
+
+    function startCountdown() {
+      if (!appData || !appData.siteConfig || !appData.siteConfig.dates) return;
+
+      const targetDate = new Date(appData.siteConfig.dates.endDate).getTime();
+      const startDate = new Date(appData.siteConfig.dates.startDate).getTime();
+
+      function update() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance < 0) {
+          document.getElementById('days').innerText = '00';
+          document.getElementById('hours').innerText = '00';
+          document.getElementById('minutes').innerText = '00';
+          document.getElementById('seconds').innerText = '00';
+          document.getElementById('progressBar').style.width = '100%';
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('days').innerText = String(days).padStart(2, '0');
+        document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+
+        const totalDuration = targetDate - startDate;
+        const elapsed = now - startDate;
+        const progress = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
+        document.getElementById('progressBar').style.width = `${progress}%`;
+      }
+
+      update();
+      setInterval(update, 1000);
+    }
+
+    // Canvas Anima Petali e Polvere Dorata
+    const canvas = document.getElementById('petalsCanvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const particles = Array.from({ length: 35 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 4 + 2,
+      speedY: Math.random() * 0.8 + 0.3,
+      speedX: Math.random() * 0.4 - 0.2,
+      color: Math.random() > 0.4 ? 'rgba(216, 180, 226, 0.35)' : 'rgba(212, 175, 55, 0.4)',
+      angle: Math.random() * Math.PI * 2,
+      spin: (Math.random() - 0.5) * 0.02
+    }));
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.y += p.speedY;
+        p.x += p.speedX;
+        p.angle += p.spin;
+
+        if (p.y > height) { p.y = -10; p.x = Math.random() * width; }
+        if (p.x > width) p.x = 0;
+        if (p.x < 0) p.x = width;
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle);
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, p.size, p.size * 1.8, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    initApp();
+  </script>
+</body>
+</html>
