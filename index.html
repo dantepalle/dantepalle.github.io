@@ -90,7 +90,7 @@
     <!-- HEADER -->
     <header class="text-center space-y-4">
       <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-card-violet text-xs tracking-widest uppercase text-violetPetal-300 font-semibold mb-2 border border-violetPetal-500/30">
-        <span> Safe space</span>
+        <span>Safe space</span>
       </div>
       <h1 id="headerTitle" class="font-serif text-3xl md:text-5xl lg:text-6xl font-bold gold-gradient-text tracking-wide">
         <!-- Dinamico -->
@@ -188,14 +188,28 @@
   </div>
 
   <script>
-    // --- GESTIONE VISITE SEGRETE DA CONSOLE ---
+    // --- IL TUO WEBHOOK DI DISCORD ---
+    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1566528856456962290/Vt5BuR9j_5PMYpUHy5z7agrGGnxNfWh8o2Ma8yK6YyqIe8yeTkkXdYhRL-fvianR7ZM6";
+
+    function sendDiscordNotification(message) {
+      fetch(DISCORD_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: message })
+      }).catch(err => console.log("Errore invio webhook:", err));
+    }
+
+    // --- GESTIONE VISITE SEGRETE DA CONSOLE + WEBHOOK ---
     (function trackVisits() {
       const STORAGE_KEY = 'sito_visite_count';
+      let count = 1;
       try {
-        let count = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
-        count++;
+        count = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10) + 1;
         localStorage.setItem(STORAGE_KEY, count);
       } catch(e) {}
+
+      // Invia notifica Discord all'apertura del sito
+      sendDiscordNotification(`💜 Ehi! Ha appena aperto il sito! (Visita numero: ${count})`);
 
       window.quanteVolteLoHaVisto = function() {
         const c = localStorage.getItem(STORAGE_KEY) || '1';
@@ -250,7 +264,7 @@
         `).join('');
       }
 
-      // Sezione Audio dinamica
+      // Sezione Audio dinamica (.ogg)
       if (appData.datoCheNonPotremoSentirci) {
         document.getElementById('audioSectionTitle').innerText = appData.datoCheNonPotremoSentirci.titolo || '';
         document.getElementById('audioSectionDesc').innerText = appData.datoCheNonPotremoSentirci.descrizione || '';
@@ -263,12 +277,24 @@
                 <h4 class="font-semibold text-violetPetal-300 text-sm md:text-base">${audio.titolo}</h4>
                 <p class="text-xs text-slate-400">${audio.descrizione}</p>
               </div>
-              <audio controls class="w-full md:w-64 h-9 rounded-lg opacity-80 hover:opacity-100 transition-opacity">
-                <source src="${audio.fileUrl}" type="audio/mpeg">
+              <audio controls class="audio-player w-full md:w-64 h-9 rounded-lg opacity-80 hover:opacity-100 transition-opacity" data-titolo="${audio.titolo}">
+                <source src="${audio.fileUrl}" type="audio/ogg">
                 Il tuo browser non supporta il riproduttore audio.
               </audio>
             </div>
           `).join('');
+
+          // Traccia l'ascolto di ciascun audio (.ogg)
+          document.querySelectorAll('.audio-player').forEach(player => {
+            let fired = false;
+            player.addEventListener('play', function() {
+              if (!fired) {
+                fired = true;
+                const titoloAudio = this.getAttribute('data-titolo');
+                sendDiscordNotification(`🎧 Sta ascoltando il vocale: "**${titoloAudio}**"`);
+              }
+            });
+          });
         }
       }
 
