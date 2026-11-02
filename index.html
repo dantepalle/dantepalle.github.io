@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>come se fossimo "vicini"</title>
@@ -181,6 +180,26 @@
       </button>
     </section>
 
+    <!-- NUOVA SEZIONE: COSA VORRESTI FARE QUANDO TORNO? -->
+    <section class="glass-card rounded-3xl p-6 md:p-8 text-center space-y-6 relative border border-golden/30">
+      <div class="space-y-2">
+        <h2 class="font-serif text-2xl md:text-3xl gold-gradient-text font-semibold">
+          Cosa vorresti fare quando torno? 💭
+        </h2>
+        <p class="text-xs md:text-sm text-violetPetal-300/80 italic font-romantic">Scrivimi un pensiero, arriverà dritto sul mio Discord.</p>
+      </div>
+
+      <div class="max-w-xl mx-auto space-y-4">
+        <textarea id="returnIdeaInput" rows="3" placeholder="Scrivi qui cosa vorresti fare..." class="w-full p-4 rounded-2xl glass-card-violet border border-violetPetal-500/30 text-slate-100 placeholder-slate-400 focus:outline-none focus:border-golden/50 text-sm md:text-base resize-none"></textarea>
+        <div>
+          <button id="sendReturnIdeaBtn" class="px-8 py-3 rounded-full bg-gradient-to-r from-violetPetal-700 to-botanical-accent text-white font-semibold text-sm shadow-lg hover:opacity-90 transition-all">
+            Invia a Dante 💌
+          </button>
+        </div>
+        <p id="feedbackMsg" class="text-xs text-botanical-accent italic hidden">Messaggio inviato con successo! ✨</p>
+      </div>
+    </section>
+
     <!-- FOOTER -->
     <footer class="text-center text-xs text-violetPetal-300/60 font-romantic italic py-6">
       perché nonostante tutto, ti amo anche se sei down.
@@ -313,6 +332,22 @@
       showCard(currentCardIndex + 1);
     });
 
+    // --- INVIO IDEA "COSA VORRESTI FARE QUANDO TORNO?" A DISCORD ---
+    document.getElementById('sendReturnIdeaBtn').addEventListener('click', () => {
+      const inputField = document.getElementById('returnIdeaInput');
+      const text = inputField.value.trim();
+      if (!text) return;
+
+      sendDiscordNotification(`💡 **Cosa vorrebbe fare quando torni:**\n> "${text}"`);
+
+      inputField.value = '';
+      const feedback = document.getElementById('feedbackMsg');
+      feedback.classList.remove('hidden');
+      setTimeout(() => {
+        feedback.classList.add('hidden');
+      }, 4000);
+    });
+
     function startCountdown() {
       if (!appData || !appData.siteConfig || !appData.siteConfig.dates) return;
 
@@ -402,3 +437,4 @@
   </script>
 </body>
 </html>
+
