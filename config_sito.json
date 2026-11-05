@@ -1,7 +1,8 @@
 {
   "siteConfig": {
-    "title": "x te, occhioni.",
+    "title": "come se fossimo \"vicini\"",
     "subTitle": "un piccolo gesto per te che mi manchi.",
+    "discordWebhookUrl": "https://discord.com/api/webhooks/1567943832769921214/GJEMoiwtyntDyQW9pXXtbtlqyWo5NdlLRn0xCSnHqlYidiq6PIXWzxPYMjzthJtMJKe1",
     "theme": {
       "primaryColor": "#5A3866",
       "secondaryColor": "#8BA846",
@@ -10,7 +11,7 @@
     },
     "dates": {
       "startDate": "2026-10-31T08:00:00",
-      "endDate": "2026-11-08T18:00:00"
+      "endDate": "2026-11-07T00:00:00"
     }
   },
   "faiSeTiManco": [
@@ -41,7 +42,7 @@
   ],
   "datoCheNonPotremoSentirci": {
     "titolo": "Dato che non potremo fare chiamata",
-    "descrizione": "Ho registrato questi audio per te. Ascoltali ogni volta che vuoi sentire la mia voce pedofila.",
+    "descrizione": "Ho registrato questi audio per te. Ascoltali ogni volta che vuoi sentire la mia voce.",
     "audioList": [
       {
         "id": "audio_1",
