@@ -208,11 +208,12 @@
   </div>
 
   <script>
-    // --- IL TUO WEBHOOK DI DISCORD ---
-    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1567943832769921214/GJEMoiwtyntDyQW9pXXtbtlqyWo5NdlLRn0xCSnHqlYidiq6РIXWzхPYMjzthJtMJKe1";
+    let appData = null;
+    let currentCardIndex = 0;
 
     function sendDiscordNotification(message) {
-      fetch(DISCORD_WEBHOOK_URL, {
+      if (!appData || !appData.siteConfig || !appData.siteConfig.discordWebhookUrl) return;
+      fetch(appData.siteConfig.discordWebhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: message })
@@ -228,9 +229,6 @@
         localStorage.setItem(STORAGE_KEY, count);
       } catch(e) {}
 
-      // Invia notifica Discord all'apertura del sito
-      sendDiscordNotification(`💜 Ehi! Ha appena aperto il sito! (Visita numero: ${count})`);
-
       window.quanteVolteLoHaVisto = function() {
         const c = localStorage.getItem(STORAGE_KEY) || '1';
         console.log(`💜 Lo ha aperto esattamente ${c} volte!`);
@@ -243,9 +241,6 @@
       };
     })();
 
-    let appData = null;
-    let currentCardIndex = 0;
-
     async function initApp() {
       try {
         const response = await fetch('config_sito.json');
@@ -253,6 +248,10 @@
           appData = await response.json();
           renderContent();
           startCountdown();
+
+          // Invia notifica Discord all'apertura del sito (dopo aver caricato il JSON)
+          const count = localStorage.getItem('sito_visite_count') || '1';
+          sendDiscordNotification(`💜 Ehi! Ha appena aperto il sito! (Visita numero: ${count})`);
         } else {
           console.error("Impossibile caricare config_sito.json");
         }
@@ -437,4 +436,3 @@
   </script>
 </body>
 </html>
-
