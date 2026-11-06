@@ -208,12 +208,12 @@
   </div>
 
   <script>
-    let appData = null;
-    let currentCardIndex = 0;
+    // --- WEBHOOK CIFRATO IN BASE64 (AGGIORNATO) ---
+    const ENCRYPTED_WEBHOOK = "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTU2ODIzMzAwMzczNjM3NTI5Ny9CQWRrVDBjM1ZfQ1VId3FIbmd4OFo0c1ZFOUpzWFd4X2Z0c2J5dzZVYlNaM09CLXhvOUdieU03aGZ0MjVyLTBkOExm";
 
     function sendDiscordNotification(message) {
-      if (!appData || !appData.siteConfig || !appData.siteConfig.discordWebhookUrl) return;
-      fetch(appData.siteConfig.discordWebhookUrl, {
+      const webhookUrl = atob(ENCRYPTED_WEBHOOK);
+      fetch(webhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: message })
@@ -241,6 +241,9 @@
       };
     })();
 
+    let appData = null;
+    let currentCardIndex = 0;
+
     async function initApp() {
       try {
         const response = await fetch('config_sito.json');
@@ -249,7 +252,7 @@
           renderContent();
           startCountdown();
 
-          // Invia notifica Discord all'apertura del sito (dopo aver caricato il JSON)
+          // Invia notifica Discord all'apertura del sito
           const count = localStorage.getItem('sito_visite_count') || '1';
           sendDiscordNotification(`💜 Ehi! Ha appena aperto il sito! (Visita numero: ${count})`);
         } else {
